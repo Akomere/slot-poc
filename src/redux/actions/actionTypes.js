@@ -1,0 +1,3 @@
+export const CREATE_COURSE = "CREATE_COURSE";
+export const SELECTED_TIME = "SELECTED_TIME";
+
