@@ -4,13 +4,43 @@ import moment from 'moment';
 import { DateCalendar, StaticDatePicker } from '@mui/x-date-pickers';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { Box, Card, CardActions, CardContent, CardMedia, Container, Stack, Typography, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Divider, Radio } from '@mui/material';
+import { Box, Card, CardActions, CardContent, CardMedia, Stack, Typography, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Divider, Radio } from '@mui/material';
 import Button from '@mui/material/Button';
 import TimeSlots from './TimeSlots';
 import Service from './Service';
 import ContactCard from './ContactCard';
 import { setSelectedBooking } from '../../redux/actions/bookingAction';
 import { connect } from "react-redux";
+import styled from 'styled-components';
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 80vw;
+  margin: auto;
+  //padding: 16px 40px;
+  border: 2px solid black;
+  box-shadow: 2;
+`
+
+const LeftContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+`
+const SlotPickerWrapper = styled.div`
+  display: flex;
+  justify-content: space-around;
+  width: 800px;
+  //height: 80vh;
+  //border: 2px solid black;
+`
+
+const CalenderWrapper = styled.div`
+  
+`
 
 class AppointmentCalender extends React.Component {
 
@@ -32,35 +62,35 @@ class AppointmentCalender extends React.Component {
   }
   render() {
     return (
-      <Box>
-        <Box height="100%" justifyContent="center">
-          <Stack direction="row" width="75vw" justifyContent="center" paddingX={5} paddingY={2} m="auto" flex={1} spacing={4} sx={{ border: '1px solid gray', boxShadow: 2 }}>
-            <Stack direction="column" alignItems="center" flex={3} spacing={3}>
-              <Typography variant="h5">SELECTED SERVICES</Typography>
-              <Service />
-              <Stack direction="row" sx={{ width: 800, height: "80vh" }} spacing={3}>
+      <Box height="100%" justifyContent="center">
+        <Container>
+          <LeftContentWrapper>
+            <Typography variant="h5">SELECTED SERVICES</Typography>
+            <Service />
+            <SlotPickerWrapper>
+              <CalenderWrapper>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DateCalendar
                     sx={{ border: '1px solid gray', boxShadow: 2 }}
                     onChange={this.handleTimeSelected}
                   />
                 </LocalizationProvider>
-                <Box flex={1}>
-                  <TimeSlots />
-                </Box>
-              </Stack>
-            </Stack>
+              </CalenderWrapper>
 
-            <Stack direction="row" flex={1} justifyContent="flex-end">
-              <ContactCard />
-            </Stack>
+              <TimeSlots />
+            </SlotPickerWrapper>
+          </LeftContentWrapper>
 
+          <Stack direction="row" flex={1} justifyContent="flex-end">
+            <ContactCard />
           </Stack>
-        </Box>
+        </Container>
       </Box>
     );
   }
 }
+
+//direction="row" width="75vw" justifyContent="center" paddingX={5} paddingY={2} m="auto" flex={1} spacing={4} sx={{ border: '1px solid gray', boxShadow: 2 }}
 
 // function AppointmentCalendar() {
 //   const [events, setEvents] = useState([]);

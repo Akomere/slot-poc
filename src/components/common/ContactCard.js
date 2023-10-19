@@ -3,7 +3,7 @@ import React from 'react'
 
 function ContactCard() {
   return (
-      <Card sx={{ maxWidth: 400 }}>
+      <Card sx={{ maxWidth: 400, height: "100vh" }}>
           <CardMedia
               sx={{ height: 140 }}
               image="/static/images/cards/contemplative-reptile.jpg"

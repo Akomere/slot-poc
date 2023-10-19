@@ -31,7 +31,6 @@ const ServicesPage = () => {
                   <Stack width="100%">
                       <ServicesList services={services} onBook={handleBooking} />
                   </Stack>
-
               </Stack>
 
               <Stack direction="row" flex={1} justifyContent="flex-end">
