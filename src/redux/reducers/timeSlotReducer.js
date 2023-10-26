@@ -27,7 +27,8 @@ const defaultState = {
           email: "bob@example.com"
         }
       ],
-    bookedSlot: " "
+    bookedSlot: " ",
+    bookedService: " "
 };
 
 
@@ -37,7 +38,12 @@ export default function timeSlotReducer(state = {}, action) {
       return {...state,
                bookedSlot: action.payload
               };
+    case "SELECTED_SERVICE":
+      return {...state,
+                bookedService: action.payload
+              };
     default:
       return state;
   }
+
 }

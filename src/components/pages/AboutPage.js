@@ -11,6 +11,8 @@ const AboutPage = () => (
     <Link to="appointments" className="btn btn-primary btn-lg">
       Book Appointment
     </Link>
+    <b />
+    <b />
     <Link to="services" className="btn btn-primary btn-lg">
       Our Services
     </Link>

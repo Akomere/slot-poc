@@ -10,22 +10,36 @@ import CommentIcon from '@mui/icons-material/Comment';
 import generateRandomTimeSlots from '../../utils/availableSlotsData';
 import { useSelector } from 'react-redux';
 
-const bookedTime = state => state
+const bookedTime = state => state.timeSlots
 
 export default function TimeSlots() {
         const [checked, setChecked] = React.useState([0]);
-        const [bookedSlot, setBookedSlot] = React.useState("");
+        //const [bookedSlot, setBookedSlot] = React.useState();
         const [availableSlots, setAvailableSlots] = useState([])
+        let combinedDateTime;
+        let slotDate;
 
-        const booking = useSelector(bookedTime);
+        const bookedSlot = useSelector(bookedTime);
 
-        console.log(booking);
+        // console.log(booking);
+        // if (bookedSlot){
+        //   const date = new Date(bookedSlot?.bookedSlot?.toJSON())?.getDate();
+        // }
+        
 
         useEffect(() => {
           const slots = generateRandomTimeSlots();
-          setAvailableSlots(slots);
-        }, [])
+          const availableSlotsForSelectedDate = slots.filter((slot) => {
+            combinedDateTime = `${slot.date}T${slot.time}:00`;
+            slotDate = new Date(combinedDateTime);
+            const selectedDate = bookedSlot?.bookedSlot ? new Date(bookedSlot?.bookedSlot?.toJSON()) : new Date() ;
+            return slotDate.getDate() === selectedDate.getDate() && slotDate.getMonth() === selectedDate.getMonth();
+          });
+          setAvailableSlots(availableSlotsForSelectedDate);
+        }, [bookedSlot])
         //need to get the new selected date from the store
+
+        console.log(availableSlots);
 
         //filter through all the available slots by day
         //list all the available slots for that day
@@ -56,7 +70,7 @@ export default function TimeSlots() {
             }
           ];
 
-        const handleToggle = (value ) => () => {
+        const handleToggle = (value) => () => {
           const currentIndex = checked.indexOf(value);
           const newChecked = [...checked];
 
@@ -65,7 +79,6 @@ export default function TimeSlots() {
           } else {
             newChecked.splice(currentIndex, 1);
           }
-
           setChecked(newChecked);
         };
     return (
@@ -74,12 +87,12 @@ export default function TimeSlots() {
             const labelId = `checkbox-list-label-${value}`;
                 return (
                 <ListItem
-                    key={value}
-                    secondaryAction={
-                    <IconButton edge="end" aria-label="comments">
-                        <CommentIcon />
-                    </IconButton>
-                    }
+                    key={value.time}
+                    // secondaryAction={
+                    // <IconButton edge="end" aria-label="comments">
+                    //     <CommentIcon />
+                    // </IconButton>
+                    // }
                     disablePadding
                 >
                     <ListItemButton role={undefined} onClick={handleToggle(value)} dense>
@@ -92,7 +105,7 @@ export default function TimeSlots() {
                         inputProps={{ 'aria-labelledby': labelId }}
                         />
                     </ListItemIcon>
-                    <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
+                    <ListItemText id={labelId} primary={value.time} />
                     </ListItemButton>
                 </ListItem>
                 );

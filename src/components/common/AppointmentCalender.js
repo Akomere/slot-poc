@@ -12,6 +12,7 @@ import ContactCard from './ContactCard';
 import { setSelectedBooking } from '../../redux/actions/bookingAction';
 import { connect } from "react-redux";
 import styled from 'styled-components';
+import ServiceItem from './ServiceItem';
 
 const Container = styled.div`
   display: flex;
@@ -41,6 +42,8 @@ const SlotPickerWrapper = styled.div`
 const CalenderWrapper = styled.div`
   
 `
+
+const service = { name: 'Service 1', price: '$100', description: "Content for service 1 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Luctus venenatis lectus magna fringilla urna. Ut tortor pretium viverra suspendisse potenti." }
 
 class AppointmentCalender extends React.Component {
 
